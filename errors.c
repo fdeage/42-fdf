@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:22:19 by fdeage            #+#    #+#             */
-/*   Updated: 2015/02/02 14:13:24 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/02 14:30:28 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_line(const char const *str, size_t line)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && !ft_isspace(str[i]))
+		if (str[i] != '-' && !ft_isdigit(str[i]) && !ft_isspace(str[i]))
 		{
 			ft_putstr_color("Bad character: ", COL_RED);
 			ft_putchar('\"');
