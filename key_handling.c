@@ -6,11 +6,12 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/21 16:43:49 by fdeage            #+#    #+#             */
-/*   Updated: 2015/02/02 14:12:34 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/02 19:45:29 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <unistd.h>
 #include "fdf.h"
 
 void		exit_fdf(t_file *file, t_params *params)
@@ -28,7 +29,7 @@ void		exit_fdf(t_file *file, t_params *params)
 	exit(EXIT_SUCCESS);
 }
 
-static void	key_choice(unsigned int key, t_params *params)
+static int	key_choice(unsigned int key, t_params *params)
 {
 	if (key == KEY_PLUS)
 	{
@@ -52,6 +53,9 @@ static void	key_choice(unsigned int key, t_params *params)
 		params->x_shift -= 10;
 	else if (key == KEY_RIGHT)
 		params->x_shift += 10;
+	else
+		return (0);
+	return (1);
 }
 
 int			key_press(unsigned int key, t_params *params)
@@ -60,18 +64,36 @@ int			key_press(unsigned int key, t_params *params)
 		exit_fdf(params->file, params);
 	else
 	{
-		key_choice(key, params);
-		compute_projection(params, params->file);
-		mlx_put_image_to_window(params->e->mlx, params->e->win,
-			params->e->img->ptr, 0, 0);
+		if (key_choice(key, params) == 1)
+			params->reprint = 1;
+		print_file(params);
 	}
 	return (0);
 }
 
-int			expose_hook(t_params *params)
+int			print_file(t_params *params)
 {
+	(params->nb_print)++;
+	ft_putstr_color("Nb print: ", COL_MAGENTA);
+	ft_color_switch_fd(COL_LIGHT_MAGENTA, 1);
+	ft_putnbr((int)params->nb_print);
+	ft_color_std_fd(1);
+	ft_putchar('\n');
 	compute_projection(params, params->file);
 	mlx_put_image_to_window(params->e->mlx, params->e->win,
 		params->e->img->ptr, 0, 0);
+	params->reprint = 0;
+	return (0);
+}
+
+int			loop_hook(t_params *params)
+{
+	if (params->reprint == 1)
+	{
+		print_file(params);
+		params->reprint = 0;
+	}
+	else
+		usleep(500);
 	return (0);
 }

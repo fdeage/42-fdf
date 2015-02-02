@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/10 22:45:32 by fdeage            #+#    #+#             */
-/*   Updated: 2015/01/30 20:16:00 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/02 19:38:06 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ typedef struct			s_params
 	int					min;
 	int					max;
 	float				step;
+	char				reprint;
+	int					time;
+	size_t				nb_print;
 	int					**tab;
 	t_env				*e;
 }						t_params;
@@ -133,7 +136,8 @@ void					fdf_errors(const char *str);
 
 void					exit_fdf(t_file *file, t_params *par);
 int						key_press(unsigned int key, t_params *par);
-int						expose_hook(t_params *par);
+int						print_file(t_params *par);
+int						loop_hook(t_params *params);
 
 /*
 ** read.c - OK

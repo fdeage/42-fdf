@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:04:30 by fdeage            #+#    #+#             */
-/*   Updated: 2015/01/30 20:35:37 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/02 19:41:33 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ static int		check_files(int ac, char **av)
 {
 	int		fd;
 
-	if (ac != 2)
-		fdf_errors("No file or too many files entered.\n");
+	if (ac < 2)
+		fdf_errors("No file entered.\n");
+	else if (ac > 2)
+		fdf_errors("Too many files entered.\n");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		fdf_errors("Failed to open the file.\n");
@@ -59,6 +61,9 @@ static void		init_params(t_params *params, t_env *e, int **tab)
 	params->y_zoom = 20;
 	params->x_shift = 700;
 	params->y_shift = 400;
+	params->time = 0;
+	params->nb_print = 0;
+	params->reprint = 1;
 }
 
 int				main(int ac, char **av)
@@ -80,8 +85,9 @@ int				main(int ac, char **av)
 	init_params(params, e, file->tab);
 	get_minmax(file, params);
 	params->file = file;
-	mlx_expose_hook(e->win, &expose_hook, params);
+	mlx_expose_hook(e->win, &print_file, params);
 	mlx_hook(e->win, KeyPress, KeyPressMask, &key_press, params);
+	mlx_loop_hook(e->mlx, &loop_hook, params);
 	mlx_loop(e->mlx);
 	return (EXIT_SUCCESS);
 }

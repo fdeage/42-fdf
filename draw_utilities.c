@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/21 21:29:05 by fdeage            #+#    #+#             */
-/*   Updated: 2015/01/30 18:45:18 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/02 19:05:11 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	clear_image(t_env *e)
 		}
 		++i;
 	}
-	mlx_put_image_to_window(e->mlx, e->win, e->img->ptr, 0, 0);
 }
 
 void	draw_pixel_around(t_params *params, t_point *p, int col)
