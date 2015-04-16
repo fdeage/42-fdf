@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/21 16:43:49 by fdeage            #+#    #+#             */
-/*   Updated: 2015/02/02 19:45:29 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/10 12:47:58 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			print_file(t_params *params)
 	ft_putnbr((int)params->nb_print);
 	ft_color_std_fd(1);
 	ft_putchar('\n');
+	clear_image(params->e);
 	compute_projection(params, params->file);
 	mlx_put_image_to_window(params->e->mlx, params->e->win,
 		params->e->img->ptr, 0, 0);

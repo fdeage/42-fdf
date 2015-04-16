@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/18 16:22:19 by fdeage            #+#    #+#             */
-/*   Updated: 2015/02/02 14:30:28 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/05 12:10:58 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	fdf_errors(const char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	check_line(const char const *str, size_t line)
+void	check_line(const char *str, size_t line)
 {
 	register size_t	i;
 

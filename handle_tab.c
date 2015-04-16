@@ -6,10 +6,11 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/28 19:11:02 by fdeage            #+#    #+#             */
-/*   Updated: 2015/01/30 18:48:28 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/04/16 11:02:44 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include "fdf.h"
 
 void	get_minmax(t_file *file, t_params *params)
@@ -18,8 +19,8 @@ void	get_minmax(t_file *file, t_params *params)
 	size_t	j;
 
 	i = 0;
-	params->min = 2000000000;
-	params->max = -2000000000;
+	params->min = INT_MAX + 1;
+	params->max = INT_MAX;
 	while (i < file->nb_line)
 	{
 		j = 0;

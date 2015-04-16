@@ -6,7 +6,7 @@
 /*   By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/29 16:42:18 by fdeage            #+#    #+#             */
-/*   Updated: 2015/01/30 18:39:53 by fdeage           ###   ########.fr       */
+/*   Updated: 2015/02/10 12:47:38 by fdeage           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #define INV_SQRT_6			(0.4082483)
 #define SQRT_3				(1.7320508)
 #define _INV6_SQRT_3		(-0.7071067)
+
+/*
+** tab[0] = p->x * e->zoom;
+** tab[1] = p->y * e->zoom;
+** tab[2] = p->z * -(e->zoom * 0.08);
+** p->x_2d = (tab[0] - tab[1]) * e->rotate_x + e->pos_x;
+** p->y_2d = (tab[2] + (tab[0] + tab[1]) * e->rotate_y) + e->pos_y;
+*/
 
 static void	isometric_conversion(t_point *p, t_params *display)
 {
@@ -53,7 +61,6 @@ void		compute_projection(t_params *params, t_file *file)
 {
 	t_point		p1;
 
-	clear_image(params->e);
 	p1.i = 0;
 	while (p1.i < file->nb_line - 0)
 	{
