@@ -146,7 +146,7 @@ int						loop_hook(t_params *params);
 int						read_tab(t_file *file);
 
 /*
-** handle_tab.c - OK
+** tabs.c - OK
 */
 
 int						build_tab(t_file *file);
@@ -155,13 +155,13 @@ void					free_file(t_file *file);
 void					get_minmax(t_file *file, t_params *par);
 
 /*
-** compute_projection.c
+** compute.c
 */
 
 void					compute_projection(t_params *par, t_file *file);
 
 /*
-** draw_utilities.c
+** draw.c
 */
 
 void					clear_image(t_env *e);

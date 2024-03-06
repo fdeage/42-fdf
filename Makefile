@@ -1,56 +1,37 @@
-#******************************************************************************#
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fdeage <fdeage@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/12/16 16:38:06 by fdeage            #+#    #+#              #
-#    Updated: 2015/04/16 10:51:39 by fdeage           ###   ########.fr        #
-#                                                                              #
-#******************************************************************************#
+NAME=fdf
 
-NAME		=	fdf
+CC=gcc
+FLAGS=-Wall -Wextra -Werror
+EXTRAFLAGS=-pedantic -Weverything -Wno-missing-prototypes
+LDFLAGS=-L/usr/X11/lib
+MLXFLAGS=-lmlx -lXext -lX11
+FLAGS=$(CFLAGS) $(MLXFLAGS) $(LDFLAGS)
 
-SRC 		=	main.c					\
-				read.c					\
-				handle_tab.c			\
-				compute_projection.c	\
-				draw_utilities.c		\
-				key_handling.c			\
-				errors.c
+LIBFT=./libft.a
+SRC_DIR=./src
+INCLUDE_DIR=./include
 
-OBJ			=	$(SRC:.c=.o)
+SRC=$(wildcard $(SRC_DIR)/*.c)
+OBJ=$(SRC:.c=.o)
 
-INC			=	-I./include -I./libft/include
-LINK		=	-Llibft -lft $(LDFLAGS) $(MLXFLAGS)
+COL_B=\033[1;34m
+COL_G=\033[1;32m
+COL_RES=\033[0m
 
-CFLAGS		=	-Wall -Wextra -Werror -g3 -pedantic
-EXTRAFLAGS	=	--analyze -Weverything -Wno-missing-prototypes -Qunused-arguments
-LDFLAGS		=	-L/usr/X11/lib
-MLXFLAGS	=	-lmlx -lXext -lX11
-FLAGS		=	$(CFLAGS) $(MLXFLAGS) $(LDFLAGS)
+all: $(NAME)
 
-CC			=	/usr/bin/gcc
-RM			=	/bin/rm -v
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LIBFT)
 
-all			:	$(NAME)
+%.o: %.c
+	$(CC) $(FLAGS) -I. -c $< -o $@
 
-$(NAME)		:	$(OBJ)
-				make -C ./libft
-				$(CC) $(FLAGS) $(INC) $(LINK) $(OBJ) -o $(NAME)
-clean		:
-				make -C ./libft clean
-				$(RM) $(OBJ)
+clean:
+	-@rm $(OBJ)
 
-fclean		:	clean
-				make -C ./libft fclean
-				$(RM) $(NAME)
+fclean : clean
+	@rm $(NAME)
 
-re			:	fclean all
+re: fclean $(NAME)
 
-extra       :   FLAGS += $(EXTRAFLAGS)
-extra       :   re
-
-%.o			:	%.c
-				$(CC) $(CFLAGS) $(INC) -c $< -o $@
+.PHONY: all clean fclean re
